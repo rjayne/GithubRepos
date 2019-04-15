@@ -10,16 +10,21 @@ import org.androidannotations.annotations.EBean
 import java.util.*
 
 @EBean(scope = EBean.Scope.Singleton)
-class GithubRepository {
+class GitHubRepository() {
 
     @Bean
-    lateinit var githubApiService: GithubApiService
+    lateinit var gitHubApiService: GitHubApiService
 
     private val cachedTrendingRepos = ArrayList<Repo>()
     private val cachedContributors = HashMap<String, List<Contributor>>()
     var scheduler = Schedulers.io()
 
     fun getTrendingRepos(): Single<List<Repo>> {
+//        var cachedObservable = cachedTrendingRepos().toObservable()
+//        var apiObservable = apiTrendingRepos().toObservable()
+
+//        return Observable.concat(cachedObservable, apiObservable).firstElement().subscribeOn(scheduler).toSingle()
+
         return Maybe.concat(cachedTrendingRepos(), apiTrendingRepos())
             .firstOrError()
             .subscribeOn(scheduler)
@@ -52,7 +57,7 @@ class GithubRepository {
     }
 
     private fun apiContributors(url: String): Maybe<List<Contributor>> {
-        return githubApiService.getContributors(url)
+        return gitHubApiService.getContributors(url)
             .doOnSuccess({ contributors -> cachedContributors.put(url, contributors) })
             .toMaybe()
     }
@@ -70,7 +75,7 @@ class GithubRepository {
     }
 
     private fun apiRepo(repoOwner: String, repoName: String): Maybe<Repo> {
-        return githubApiService.getRepo(repoOwner, repoName).toMaybe()
+        return gitHubApiService.getRepo(repoOwner, repoName).toMaybe()
     }
 
     private fun cachedTrendingRepos(): Maybe<List<Repo>> {
@@ -83,7 +88,7 @@ class GithubRepository {
     }
 
     private fun apiTrendingRepos(): Maybe<List<Repo>> {
-        return githubApiService.getTrendingRepos()
+        return gitHubApiService.getTrendingRepos()
             .doOnSuccess({ repos ->
                 cachedTrendingRepos.clear()
                 cachedTrendingRepos.addAll(repos)

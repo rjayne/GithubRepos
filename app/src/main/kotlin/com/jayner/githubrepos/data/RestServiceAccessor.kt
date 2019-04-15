@@ -10,10 +10,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 @EBean(scope = EBean.Scope.Singleton)
 class RestServiceAccessor {
 
-    lateinit var githubRestClient: GithubRestClient
+    lateinit var gitHubRestClient: GitHubRestClient
 
     init {
-        githubRestClient = provideGithubRestService()
+        gitHubRestClient = provideGithubRestService()
     }
 
     internal fun provideRetrofit(baseUrl: String): Retrofit {
@@ -26,9 +26,9 @@ class RestServiceAccessor {
             .build()
     }
 
-    private fun provideGithubRestService(): GithubRestClient {
+    private fun provideGithubRestService(): GitHubRestClient {
         val retrofit = provideRetrofit(BuildConfig.API_URL)
-        return retrofit.create(GithubRestClient::class.java)
+        return retrofit.create(GitHubRestClient::class.java)
     }
 
 }

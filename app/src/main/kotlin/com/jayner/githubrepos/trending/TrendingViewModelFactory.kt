@@ -2,7 +2,7 @@ package com.jayner.githubrepos.trending
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.jayner.githubrepos.data.GithubRepository
+import com.jayner.githubrepos.data.GitHubRepository
 import org.androidannotations.annotations.Bean
 import org.androidannotations.annotations.EBean
 
@@ -13,13 +13,13 @@ import org.androidannotations.annotations.EBean
 class TrendingViewModelFactory: ViewModelProvider.Factory {
 
     @Bean
-    lateinit var githubRepository: GithubRepository
+    lateinit var gitHubRepository: GitHubRepository
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         try {
             when(modelClass) {
                 TrendingReposViewModel::class -> {
-                    return TrendingReposViewModel(githubRepository) as T
+                    return TrendingReposViewModel(gitHubRepository) as T
                 }
             }
         } catch (e: Exception) {

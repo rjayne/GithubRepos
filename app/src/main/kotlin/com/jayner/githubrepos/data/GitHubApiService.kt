@@ -8,29 +8,29 @@ import org.androidannotations.annotations.Bean
 import org.androidannotations.annotations.EBean
 
 @EBean(scope = EBean.Scope.Singleton)
-class GithubApiService {
+class GitHubApiService {
 
     @Bean
     lateinit var restServiceAccessor: RestServiceAccessor
 
-    lateinit var githubRestClient: GithubRestClient
+    lateinit var gitHubRestClient: GitHubRestClient
 
     @AfterInject
     fun initAfterInject() {
-        githubRestClient = restServiceAccessor.githubRestClient
+        gitHubRestClient = restServiceAccessor.gitHubRestClient
     }
 
     fun getTrendingRepos(): Single<List<Repo>> {
-        return githubRestClient.getTrendingRepos()
+        return gitHubRestClient.getTrendingRepos()
             .map({it.items})
     }
 
     fun getRepo(repoOwner: String, repoName: String): Single<Repo> {
-        return githubRestClient.getRepo(repoOwner, repoName)
+        return gitHubRestClient.getRepo(repoOwner, repoName)
     }
 
     fun getContributors(url: String): Single<List<Contributor>> {
-        return githubRestClient.getContributors(url)
+        return gitHubRestClient.getContributors(url)
     }
 
 }

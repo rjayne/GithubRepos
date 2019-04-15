@@ -4,13 +4,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.jayner.githubrepos.data.GithubRepository
+import com.jayner.githubrepos.data.GitHubRepository
 import com.jayner.githubrepos.model.Repo
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 
-class TrendingReposViewModel(val githubRepository: GithubRepository): ViewModel() {
+class TrendingReposViewModel(val gitHubRepository: GitHubRepository): ViewModel() {
 
     private val repos = MutableLiveData<List<Repo>>()
     private val repoLoadError = MutableLiveData<Boolean>()
@@ -36,7 +36,7 @@ class TrendingReposViewModel(val githubRepository: GithubRepository): ViewModel(
 
     private fun fetchRepos() {
         loading.setValue(true)
-        githubRepository.getTrendingRepos()
+        gitHubRepository.getTrendingRepos()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : SingleObserver<List<Repo>> {
                 override fun onSubscribe(d: Disposable) {

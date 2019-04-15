@@ -73,6 +73,7 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
 
     testImplementation "junit:junit:$rootProject.junitVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha03'
     androidTestImplementation 'androidx.annotation:annotation:1.0.2'
     androidTestImplementation 'androidx.test:runner:1.1.1'

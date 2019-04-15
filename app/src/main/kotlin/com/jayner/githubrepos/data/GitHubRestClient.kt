@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Url
 
-interface GithubRestClient {
+interface GitHubRestClient {
 
     @GET("search/repositories?q=language:kotlin&order=desc&sort=stars")
     fun getTrendingRepos(): Single<TrendingReposResponse>
