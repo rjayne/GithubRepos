@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModelProviders
 import org.androidannotations.annotations.Bean
 import org.androidannotations.annotations.EFragment
 
-@EFragment
+//@EFragment
 class TrendingReposFragment: Fragment() {
 
-    @Bean
+//    @Bean
     lateinit var viewModelFactory: TrendingViewModelFactory
 
     lateinit var trendingReposViewModel: TrendingReposViewModel

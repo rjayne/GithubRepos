@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 @EBean(scope = EBean.Scope.Singleton)
 class RestServiceAccessor {
 
-    var githubRestClient: GithubRestClient
+    lateinit var githubRestClient: GithubRestClient
 
     init {
         githubRestClient = provideGithubRestService()
