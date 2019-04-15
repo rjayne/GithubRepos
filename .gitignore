@@ -11,3 +11,59 @@
 /build
 /captures
 .externalNativeBuild
+
+html/gwt-unitCache/
+.apt_generated/
+html/war/WEB-INF/deploy/
+html/war/WEB-INF/classes/
+.gwt/
+gwt-unitCache/
+www-test/
+.gwt-tmp/
+
+## Android Studio and Intellij and Android in general
+android/libs/armeabi/
+android/libs/armeabi-v7a/
+android/libs/x86/
+android/gen/
+/.idea/*
+*.ipr
+*.iws
+*.iml
+out/
+
+# External native build folder generated in Android Studio 2.2 and later
+.externalNativeBuild
+
+# IDEA/Android Studio - Share code style and some other settings
+!/.idea/vcs.xml
+!/.idea/fileTemplates/
+!/.idea/inspectionProfiles/
+!/.idea/scopes/
+!/.idea/codeStyles/
+!/.idea/encodings.xml
+!/.idea/copyright/
+!/.idea/compiler.xml
+
+## Gradle
+
+.gradle
+build/
+
+## OS Specific
+.DS_Store
+
+*.apk
+
+## Navigation Editor Files
+.navigation/
+
+## FB Infer
+infer-out/
+
+## Old Versions of Files
+*~
+
+# Screen Grab Output
+fastlane/metadata/
+.idea/vcs.xml
