@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.jayner.githubrepos.R
 import com.jayner.githubrepos.databinding.FragmentRepoDetailsBinding
 import org.androidannotations.annotations.*
+import org.threeten.bp.format.DateTimeFormatter
 
 @DataBound
 @EFragment(R.layout.fragment_repo_details)
@@ -53,6 +54,8 @@ class RepoDetailsFragment: Fragment() {
 
         repoDetailsViewModel.getRepo().observe(viewLifecycleOwner, Observer { repo ->
             binding.repo = repo
+            binding.repoCreationDate = repo.createdDate?.format(DATE_FORMATTER)
+            binding.repoUpdatedDate = repo.updatedDate?.format(DATE_FORMATTER)
         })
 
         repoDetailsViewModel.isContributorsLoading().observe(viewLifecycleOwner, Observer { isLoading ->
@@ -73,6 +76,7 @@ class RepoDetailsFragment: Fragment() {
     }
 
     companion object {
-        val TAG = "RepoDetailsFragment"
+        private val TAG = "RepoDetailsFragment"
+        private val DATE_FORMATTER = DateTimeFormatter.ofPattern("MMM dd, yyyy")
     }
 }

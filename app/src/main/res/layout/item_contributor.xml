@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="10dp"
-                android:text='"@{contributor.contributions}"'
+                android:text="@{Long.toString(contributor.contributions)}"
                 tools:text="2987"/>
     </LinearLayout>
 </layout>

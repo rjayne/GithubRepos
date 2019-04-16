@@ -61,7 +61,7 @@
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_fork"
                         android:gravity="center|end"
-                        android:text="@{repo.getNumberOfForks()}"
+                        android:text="@{Long.toString(repo.forksCount)}"
                         tools:text="1,000"/>
 
                 <TextView
@@ -70,7 +70,7 @@
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_star"
                         android:gravity="center"
-                        android:text="@{repo.getNumberOfStars()}"
+                        android:text="@{Long.toString(repo.stargazersCount)}"
                         tools:text="14,000"/>
             </LinearLayout>
         </LinearLayout>

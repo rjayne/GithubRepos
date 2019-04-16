@@ -33,11 +33,17 @@ class GitHubApiService {
         return gitHubRestClient.getRepo(repoOwner, repoName)
     }
 
+    /**
+     * Retrieve non-anonymous contributors at the specified contributors URL.
+     * Note: only the first 500 author email addresses in the repository link to GitHub users. The rest will appear
+     * as anonymous contributors without associated GitHub user information. We do not want to display these.
+     */
     fun getContributors(url: String): Single<List<Contributor>> {
-        return gitHubRestClient.getContributors(url)
+        return gitHubRestClient.getContributors(url+PARAM_NON_ANON_USERS)
     }
 
     companion object {
         val TAG = "GitHubApiService"
+        val PARAM_NON_ANON_USERS = "?q=anon:false"
     }
 }
