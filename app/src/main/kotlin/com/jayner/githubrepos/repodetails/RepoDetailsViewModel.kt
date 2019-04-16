@@ -27,6 +27,7 @@ class RepoDetailsViewModel(val gitHubRepository: GitHubRepository): ViewModel() 
 
     fun setRepo(selectedRepo: Repo) {
         repo.value = selectedRepo
+        contributors.value = emptyList()
         selectedRepo.contributorsUrl?.let{
             fetchRepoContributors(it)
         }
