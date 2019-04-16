@@ -33,44 +33,48 @@ class GitHubRepositoryTest {
 
         repository = GitHubRepository()
         repository.gitHubApiService = mockGitHubApiService
-        repository.scheduler = Schedulers.trampoline()
+        repository.scheduler = Schedulers.trampoline() // queues work on the main thread while the test is running, so test waits for it to complete before performing assertions.
     }
 
+    /**
+     * The setup above ensures that the values in trending_repos.json is returned for the apiService.getTrendingRepos API call.
+     * 1. Test that those values are the same ones returned by the repository.
+     * 2. Create a different list and have the API call return that on subsequent calls. Test that the cached list is used and not the newly mocked API list.
+     */
     @Test
     @Throws(Exception::class)
     fun getTrendingRepos_ApiThenCache() {
+        // Test
+        // 1. The values from the API call are returned
         repository.getTrendingRepos().test().assertValue(trendingReposResponse.items)
 
-//        verify(mockGitHubApiService).getTrendingRepos()
-
-        // Create a different list and have the API call return that on subsequent calls
+        // 2. Setup
         val modifiedList = ArrayList(trendingReposResponse.items)
         modifiedList.removeAt(0)
         `when`(mockGitHubApiService.getTrendingRepos()).thenReturn(Single.just<List<Repo>>(modifiedList))
 
-        // Verify we still get the cached list rather than the different API response
+        // 2. Test: Verify we still get the cached list rather than the different API response
         repository.getTrendingRepos().test().assertValue(trendingReposResponse.items)
-
-//        verifyZeroInteractions(mockGitHubApiService)
     }
 
+    /**
+     * Load trending repos to start to mimic the initial state the app is in before we look up a repo.
+     * To ensure that the mocked api call is/is not called, set it up to return a specific value to look for.
+     * 1. Test to see that cache is used to retrieve the "kotlin" repo.
+     * 2. Test to see that we perform an api call if the requested repo is not in the cache.
+     */
     @Test
     @Throws(Exception::class)
     fun getRepo_AllFromCache() {
-        // Load trending repos to mimic initial state of app
+        // Set up
         repository.getTrendingRepos().subscribe()
-
-//        verify(mockGitHubApiService).getTrendingRepos()
-
-        // Change requester to return a different repo if ever invoked
         `when`(mockGitHubApiService.getRepo(anyString(), anyString())).thenReturn(Single.just<Repo>(shadowsocksAndroidRepo))
 
-        // Verify we still get the RxJava repo, which is cached from our trending repos call above
+        // Test
+        // 1. Verify we still get the kotlin repo, which is cached from our trending repos call above
         repository.getRepo("JetBrains", "kotlin").test().assertValue(kotlinRepo)
 
-        // Fetch a repo that would not be in the cache and verify the API result is returned
-        repository.getRepo("NotInCache", "NotInCache").test().assertValue(shadowsocksAndroidRepo)
-
-//        verifyZeroInteractions(mockGitHubApiService)
+        // 2. Fetch a repo that would not be in the cache and verify the API result is returned
+        repository.getRepo("NotInCache", "NotInCache").test().assertValue(shadowsocksAndroidRepo) // this is the mocked api call return value from above
     }
 }

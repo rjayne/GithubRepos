@@ -22,15 +22,15 @@ class TrendingReposViewModel(val gitHubRepository: GitHubRepository): ViewModel(
         fetchRepos()
     }
 
-    internal fun getRepos(): LiveData<List<Repo>> {
+    fun getRepos(): LiveData<List<Repo>> {
         return repos
     }
 
-    internal fun getError(): LiveData<Boolean> {
+    fun hasError(): LiveData<Boolean> {
         return repoLoadError
     }
 
-    internal fun getLoading(): LiveData<Boolean> {
+    fun isLoading(): LiveData<Boolean> {
         return loading
     }
 

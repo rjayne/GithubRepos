@@ -1,5 +1,6 @@
 package com.jayner.githubrepos.data
 
+import android.util.Log
 import com.jayner.githubrepos.model.Contributor
 import com.jayner.githubrepos.model.Repo
 import io.reactivex.Single
@@ -21,8 +22,11 @@ class GitHubApiService {
     }
 
     fun getTrendingRepos(): Single<List<Repo>> {
+        Log.d(TAG, "getTrendingRepos")
         return gitHubRestClient.getTrendingRepos()
-            .map({it.items})
+            .map({
+                Log.d(TAG, "getTrendingRepos - within map func")
+                it.items})
     }
 
     fun getRepo(repoOwner: String, repoName: String): Single<Repo> {
@@ -33,4 +37,7 @@ class GitHubApiService {
         return gitHubRestClient.getContributors(url)
     }
 
+    companion object {
+        val TAG = "GitHubApiService"
+    }
 }

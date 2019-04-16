@@ -7,62 +7,72 @@
                 type="com.jayner.githubrepos.model.Repo"/>
     </data>
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
+            android:id="@+id/repo_list_item_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?selectableItemBackground"
-            android:orientation="horizontal"
-            android:paddingBottom="10dp"
-            android:paddingEnd="16dp"
-            android:paddingStart="16dp"
-            android:paddingTop="10dp">
+            android:layout_marginBottom="@dimen/list_item_bottom_margin"
+            android:elevation="@dimen/list_item_elevation"
+            android:foreground="?selectableItemBackground">
 
         <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/list_item_vertical_padding"
+                android:paddingEnd="@dimen/list_item_horizontal_padding"
+                android:paddingStart="@dimen/list_item_horizontal_padding"
+                android:paddingTop="@dimen/list_item_vertical_padding">
 
-            <TextView
-                    android:id="@+id/text_repo_name"
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:id="@+id/text_repo_name"
+                        style="@android:style/TextAppearance.DeviceDefault.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{repo.name}"
+                        tools:text="Repo Name"/>
+
+                <TextView
+                        android:id="@+id/text_repo_description"
+                        style="@android:style/TextAppearance.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:text="@{repo.description}"
+                        tools:text="Description"/>
+            </LinearLayout>
+
+            <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="@{repo.name}"
-                    tools:text="Repo Name"/>
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical">
 
-            <TextView
-                    android:id="@+id/text_repo_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{repo.description}"
-                    tools:text="Description"/>
+                <TextView
+                        android:id="@+id/no_of_forks"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_fork"
+                        android:gravity="center|end"
+                        android:text="@{repo.getNumberOfForks()}"
+                        tools:text="1,000"/>
+
+                <TextView
+                        android:id="@+id/no_of_stars"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_star"
+                        android:gravity="center"
+                        android:text="@{repo.getNumberOfStars()}"
+                        tools:text="14,000"/>
+            </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:orientation="vertical">
-
-            <TextView
-                    android:id="@+id/no_of_forks"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_fork"
-                    android:gravity="end"
-                    android:text="@{repo.getNumberOfForks()}"
-                    tools:text="10"/>
-
-            <TextView
-                    android:id="@+id/no_of_stars"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_star"
-                    android:gravity="end"
-                    android:text="@{repo.getNumberOfStars()}"
-                    tools:text="14,000"/>
-        </LinearLayout>
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </layout>

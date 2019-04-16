@@ -20,11 +20,6 @@ class GitHubRepository() {
     var scheduler = Schedulers.io()
 
     fun getTrendingRepos(): Single<List<Repo>> {
-//        var cachedObservable = cachedTrendingRepos().toObservable()
-//        var apiObservable = apiTrendingRepos().toObservable()
-
-//        return Observable.concat(cachedObservable, apiObservable).firstElement().subscribeOn(scheduler).toSingle()
-
         return Maybe.concat(cachedTrendingRepos(), apiTrendingRepos())
             .firstOrError()
             .subscribeOn(scheduler)
@@ -83,6 +78,7 @@ class GitHubRepository() {
             if (!cachedTrendingRepos.isEmpty()) {
                 e.onSuccess(cachedTrendingRepos)
             }
+
             e.onComplete()
         }
     }
@@ -95,5 +91,4 @@ class GitHubRepository() {
             })
             .toMaybe()
     }
-
 }

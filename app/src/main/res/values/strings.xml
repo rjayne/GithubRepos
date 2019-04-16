@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">GithubRepos</string>
+    <string name="app_name">Github Repos</string>
+    <string name="api_error_msg">Error loading Repositories</string>
 </resources>

@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jayner.githubrepos.R
 import com.jayner.githubrepos.databinding.ItemGithubRepoBinding
 import com.jayner.githubrepos.model.Repo
-import java.util.*
 
 class RepoListAdapter: RecyclerView.Adapter<RepoListAdapter.RepoViewHolder>() {
     
@@ -17,7 +16,7 @@ class RepoListAdapter: RecyclerView.Adapter<RepoListAdapter.RepoViewHolder>() {
         setHasStableIds(true)
     }
 
-    fun setData(repos: ArrayList<Repo>) {
+    fun setData(repos: List<Repo>) {
         gitHubRepos = repos
         notifyDataSetChanged() //TODO: Use DiffUtil when we have AutoValue models
     }
@@ -43,9 +42,11 @@ class RepoListAdapter: RecyclerView.Adapter<RepoListAdapter.RepoViewHolder>() {
 
     class RepoViewHolder(val binding: ItemGithubRepoBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(repo: Repo) {
-            binding.repo = repo
-            binding.executePendingBindings()
+        fun bind(repoToBind: Repo) {
+            with(binding) {
+                repo = repoToBind
+                executePendingBindings()
+            }
         }
 
     }
