@@ -35,7 +35,7 @@ class TrendingReposViewModel(val gitHubRepository: GitHubRepository): ViewModel(
     }
 
     private fun fetchRepos() {
-        loading.setValue(true)
+        loading.value = true
         gitHubRepository.getTrendingRepos()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : SingleObserver<List<Repo>> {
@@ -44,15 +44,15 @@ class TrendingReposViewModel(val gitHubRepository: GitHubRepository): ViewModel(
                 }
 
                 override fun onSuccess(trendingRepos: List<Repo>) {
-                    repoLoadError.setValue(false)
-                    repos.setValue(trendingRepos)
-                    loading.setValue(false)
+                    repoLoadError.value = false
+                    repos.value = trendingRepos
+                    loading.value = false
                 }
 
                 override fun onError(t: Throwable) {
                     Log.e(javaClass.simpleName, "Error loading repos", t)
-                    repoLoadError.setValue(true)
-                    loading.setValue(false)
+                    repoLoadError.value = true
+                    loading.value = false
                 }
             })
     }

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+                name="viewModel"
+                type="com.jayner.githubrepos.repodetails.RepoDetailsViewModel"/>
+
+        <variable
+                name="repo"
+                type="com.jayner.githubrepos.model.Repo"/>
+
+        <variable
+                name="isLoading"
+                type="Boolean"/>
+        <variable
+                name="isContributorsLoading"
+                type="Boolean"/>
+
+        <variable
+                name="hasError"
+                type="Boolean"/>
+        <variable
+                name="hasContributorsError"
+                type="Boolean"/>
+    </data>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:paddingTop="10dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                    android:id="@+id/content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <LinearLayout
+                        android:id="@+id/layout_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:id="@+id/text_repo_name"
+                            style="@android:style/TextAppearance.DeviceDefault.Medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{repo.name}"
+                            tools:text="Repo Name"/>
+
+                    <TextView
+                            android:id="@+id/text_repo_description"
+                            style="@android:style/TextAppearance.Small"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{repo.description}"
+                            tools:text="Repository description"/>
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+
+                        <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/creation_date_label"/>
+
+                        <!--<TextView-->
+                                <!--android:id="@+id/text_creation_date"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:text="@{repo.getCreatedDateForDisplay()}"-->
+                                <!--tools:text="January 29, 2017"/>-->
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/updated_date_label"/>
+
+                        <!--<TextView-->
+                                <!--android:id="@+id/text_updated_date"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:text="@{repo.getUpdatedDateForDisplay()}"-->
+                                <!--tools:text="May 1, 2016"/>-->
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/contributors_label"/>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@android:color/darker_gray"/>
+
+                <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clipChildren="false"
+                        android:clipToPadding="false"
+                        android:paddingTop="10dp">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/contributor_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:isGone="@{safeUnbox(hasContributorsError)}"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:listitem="@layout/item_contributor"/>
+
+                    <ProgressBar
+                            android:id="@+id/contributor_loading_indicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            app:isGone="@{!safeUnbox(isContributorsLoading)}"/>
+
+                    <TextView
+                            android:id="@+id/text_contributors_error"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:isGone="@{!safeUnbox(hasContributorsError)}"/>
+                </FrameLayout>
+            </LinearLayout>
+
+            <ProgressBar
+                    android:id="@+id/loading_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    app:isGone="@{!safeUnbox(isLoading)}"/>
+
+            <TextView
+                    android:id="@+id/text_error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:isGone="@{!safeUnbox(hasError)}"/>
+        </FrameLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

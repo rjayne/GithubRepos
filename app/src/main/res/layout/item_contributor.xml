@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+                name="contributor"
+                type="com.jayner.githubrepos.model.Contributor"/>
+    </data>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:paddingBottom="10dp"
+                  android:paddingTop="10dp">
+
+        <ImageView
+                android:id="@+id/image_avatar"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:src="@drawable/placeholder_avatar"/>
+
+        <TextView
+                android:id="@+id/text_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:text="@{contributor.login}"
+                tools:text="User"/>
+
+        <TextView
+                android:id="@+id/text_contributions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:text='"@{contributor.contributions}"'
+                tools:text="2987"/>
+    </LinearLayout>
+</layout>

@@ -1,8 +1,10 @@
 package com.jayner.githubrepos.model
 
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import org.threeten.bp.ZonedDateTime
+import org.threeten.bp.format.DateTimeFormatter
 
 data class Repo(val id: Long,
                 val name: String,
@@ -16,6 +18,7 @@ data class Repo(val id: Long,
 
 
     val gson = Gson()
+    private val DATE_FORMATTER = DateTimeFormatter.ofPattern("MMM dd, yyyy")
 
     fun getNumberOfForks(): String {
         return forksCount.toString()
@@ -26,11 +29,27 @@ data class Repo(val id: Long,
     }
 
     fun getCreatedDateTime(): ZonedDateTime {
+        Log.d("Repo", "getCreatedDateTime - createdDate: $createdDate")
         return ZonedDateTime.parse(createdDate)
     }
 
-    fun getUpdatedDateTime(): ZonedDateTime {
+    fun getCreatedDateForDisplay(): String {
+        val st = getCreatedDateTime().format(DATE_FORMATTER)
+        Log.d("Repo", "getCreatedDateForDisplay - $st")
+
+        return st
+    }
+
+    fun getUpdatedDateTime(): ZonedDateTime? {
+        Log.d("Repo", "getUpdatedDateTime - updatedDate: $updatedDate")
         return ZonedDateTime.parse(updatedDate)
+    }
+
+    fun getUpdatedDateForDisplay(): String? {
+        val st = getUpdatedDateTime()?.format(DATE_FORMATTER)
+        Log.d("Repo", "getUpdatedDateForDisplay - $st")
+
+        return st
     }
 
     fun toJson(): String {
@@ -40,4 +59,5 @@ data class Repo(val id: Long,
     fun fromJson(json: String): Repo {
         return gson.fromJson(json, Repo::class.java)
     }
+
 }
