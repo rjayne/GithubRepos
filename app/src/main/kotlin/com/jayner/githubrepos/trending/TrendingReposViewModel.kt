@@ -18,8 +18,10 @@ class TrendingReposViewModel(val gitHubRepository: GitHubRepository): ViewModel(
 
     private var disposable: Disposable? = null
 
-    init {
-        fetchRepos()
+    fun start() {
+        if(repos.value == null) {
+            fetchRepos()
+        }
     }
 
     fun getRepos(): LiveData<List<Repo>> {
@@ -50,7 +52,7 @@ class TrendingReposViewModel(val gitHubRepository: GitHubRepository): ViewModel(
                 }
 
                 override fun onError(t: Throwable) {
-                    Log.e(TAG, "Error loading repos - ${t.message}", t)
+//                    Log.e(TAG, "Error loading repos - ${t.message}", t)
                     repoLoadError.value = true
                     loading.value = false
                 }

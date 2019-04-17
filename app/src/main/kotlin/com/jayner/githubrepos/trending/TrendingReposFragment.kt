@@ -32,6 +32,7 @@ class TrendingReposFragment: Fragment(), RepoSelectedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         trendingReposViewModel = ViewModelProviders.of(activity as FragmentActivity, reposViewModelFactory).get(TrendingReposViewModel::class.java)
+        trendingReposViewModel.start()
     }
 
     @AfterViews
