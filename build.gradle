@@ -24,6 +24,7 @@ buildscript {
         conductorVersion = '2.1.4'
         AAVersion = '4.6.0'
         archLifecycleVersion = '2.1.0-alpha04'
+        glideVersion = '4.9.0'
         mockitoVersion = '2.27.0'
     }
 
