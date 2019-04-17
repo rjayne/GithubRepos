@@ -50,7 +50,7 @@ class TrendingReposViewModel(val gitHubRepository: GitHubRepository): ViewModel(
                 }
 
                 override fun onError(t: Throwable) {
-                    Log.e(javaClass.simpleName, "Error loading repos", t)
+                    Log.e(TAG, "Error loading repos - ${t.message}", t)
                     repoLoadError.value = true
                     loading.value = false
                 }
@@ -59,6 +59,10 @@ class TrendingReposViewModel(val gitHubRepository: GitHubRepository): ViewModel(
 
     override fun onCleared() {
         disposable?.dispose()
+    }
+
+    companion object {
+        private val TAG = "TrendingReposViewModel"
     }
 
 }

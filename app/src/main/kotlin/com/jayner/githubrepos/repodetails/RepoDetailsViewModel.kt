@@ -91,7 +91,7 @@ class RepoDetailsViewModel(val gitHubRepository: GitHubRepository): ViewModel() 
                 }
 
                 override fun onError(t: Throwable) {
-                    Log.e(TAG, "Error loading repo", t)
+                    Log.e(TAG, "Error loading repo - ${t.message}", t)
                     repoLoadError.value = true
                     loading.value = false
                 }
