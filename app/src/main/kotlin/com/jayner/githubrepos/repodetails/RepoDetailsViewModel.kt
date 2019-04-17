@@ -72,8 +72,9 @@ class RepoDetailsViewModel(val gitHubRepository: GitHubRepository): ViewModel() 
         }
     }
 
-    private fun fetchRepo(repoDetails: Array<String>) {
+    internal fun fetchRepo(repoDetails: Array<String>) {
         loading.value = true
+        repoLoadError.value = false
         gitHubRepository.getRepo(repoDetails[0], repoDetails[1])
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : SingleObserver<Repo> {
@@ -91,7 +92,7 @@ class RepoDetailsViewModel(val gitHubRepository: GitHubRepository): ViewModel() 
                 }
 
                 override fun onError(t: Throwable) {
-                    Log.e(TAG, "Error loading repo - ${t.message}", t)
+//                    Log.e(TAG, "Error loading repo - ${t.message}", t)
                     repoLoadError.value = true
                     loading.value = false
                 }
@@ -115,7 +116,7 @@ class RepoDetailsViewModel(val gitHubRepository: GitHubRepository): ViewModel() 
                 }
 
                 override fun onError(t: Throwable) {
-                    Log.e(TAG, "Error loading contributors - ${t.message}", t)
+//                    Log.e(TAG, "Error loading contributors - ${t.message}", t)
                     contributorsLoadError.value = true
                     contributorsLoading.value = false
                 }
