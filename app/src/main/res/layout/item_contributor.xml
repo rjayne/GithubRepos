@@ -7,45 +7,56 @@
                 name="contributor"
                 type="com.jayner.githubrepos.model.Contributor"/>
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
+            android:id="@+id/repo_list_item_card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/list_item_bottom_margin"
+            android:elevation="@dimen/list_item_elevation"
+            >
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/contributor_list_item_height">
 
-        <ImageView
-                android:id="@+id/image_avatar"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/placeholder_avatar"/>
+            <ImageView
+                    android:id="@+id/image_avatar"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/placeholder_avatar"/>
 
-        <TextView
-                android:id="@+id/text_user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/image_avatar"
-                app:layout_constraintEnd_toStartOf="@+id/text_contributions"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_gravity="start"
-                android:layout_marginStart="10dp"
-                android:text="@{contributor.login}"
-                tools:text="User"
-                app:layout_constraintHorizontal_bias="0.0"/>
+            <TextView
+                    android:id="@+id/text_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/image_avatar"
+                    app:layout_constraintEnd_toStartOf="@+id/text_contributions"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:text="@{contributor.login}"
+                    tools:text="User"
+                    style="@android:style/TextAppearance.DeviceDefault.Medium"
+                    app:layout_constraintHorizontal_bias="0.0"/>
 
-        <TextView
-                android:id="@+id/text_contributions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_gravity="center_vertical|end"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="@{Long.toString(contributor.contributions)}"
-                tools:text="2987"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                    android:id="@+id/text_contributions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@{Long.toString(contributor.contributions)}"
+                    style="@android:style/TextAppearance.DeviceDefault.Medium"
+                    tools:text="2987"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 </layout>

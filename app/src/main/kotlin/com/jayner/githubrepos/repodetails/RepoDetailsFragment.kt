@@ -25,7 +25,6 @@ class RepoDetailsFragment: Fragment() {
     lateinit var repoDetailsViewModel: RepoDetailsViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.d(TAG, "onViewCreated")
         repoDetailsViewModel = ViewModelProviders.of(activity as FragmentActivity, repoDetailsViewModelFactory).get(RepoDetailsViewModel::class.java)
 
         repoDetailsViewModel.restoreFromBundle(savedInstanceState)
@@ -33,7 +32,6 @@ class RepoDetailsFragment: Fragment() {
 
     @AfterViews
     fun initUI() {
-        Log.d(TAG, "initUI")
         binding.viewModel = repoDetailsViewModel
 
         val adapter = RepoContributorListAdapter()

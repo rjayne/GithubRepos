@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Github Repos</string>
     <string name="api_error_msg">Error loading Repositories</string>
+    <string name="api_contributors_error_msg">Error loading Contributors</string>
     <string name="creation_date_label">Created:</string>
     <string name="updated_date_label">Last Updated:</string>
     <string name="contributors_label">Contributors</string>

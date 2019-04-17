@@ -5,4 +5,5 @@
     <dimen name="list_item_elevation">3dp</dimen>
     <dimen name="list_item_vertical_padding">10dp</dimen>
     <dimen name="list_item_horizontal_padding">15dp</dimen>
+    <dimen name="contributor_list_item_height">100dp</dimen>
 </resources>

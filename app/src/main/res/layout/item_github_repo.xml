@@ -44,7 +44,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:maxLines="2"
+                        android:maxLines="3"
                         android:text="@{repo.description}"
                         tools:text="Description"/>
             </LinearLayout>
@@ -53,7 +53,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="5dp">
 
                 <TextView
                         android:id="@+id/no_of_forks"
@@ -62,6 +63,7 @@
                         android:drawableStart="@drawable/ic_fork"
                         android:gravity="center|end"
                         android:text="@{Long.toString(repo.forksCount)}"
+                        style="@android:style/TextAppearance.DeviceDefault.Small"
                         tools:text="1,000"/>
 
                 <TextView
@@ -71,6 +73,7 @@
                         android:drawableStart="@drawable/ic_star"
                         android:gravity="center"
                         android:text="@{Long.toString(repo.stargazersCount)}"
+                        style="@android:style/TextAppearance.DeviceDefault.Small"
                         tools:text="14,000"/>
             </LinearLayout>
         </LinearLayout>

@@ -35,7 +35,8 @@
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
         <FrameLayout
                 android:layout_width="match_parent"
@@ -59,7 +60,7 @@
 
                     <TextView
                             android:id="@+id/text_repo_name"
-                            style="@android:style/TextAppearance.DeviceDefault.Medium"
+                            style="@android:style/TextAppearance.DeviceDefault.Large"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@{repo.name}"
@@ -115,19 +116,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="@string/contributors_label"/>
+                        android:text="@string/contributors_label"
+                        style="@android:style/TextAppearance.DeviceDefault.Medium"/>
 
                 <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@android:color/darker_gray"/>
+                        android:layout_marginBottom="5dp"
+                        android:background="@android:color/black"/>
 
                 <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:minHeight="@dimen/contributor_list_item_height"
                         android:clipChildren="false"
                         android:clipToPadding="false"
-                        android:paddingTop="10dp">
+                        android:paddingTop="5dp">
 
                     <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/contributor_list"
@@ -141,13 +145,16 @@
                             android:id="@+id/contributor_loading_indicator"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
+                            android:layout_gravity="center"
                             app:isGone="@{!safeUnbox(isContributorsLoading)}"/>
 
                     <TextView
                             android:id="@+id/text_contributors_error"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/api_contributors_error_msg"
                             app:isGone="@{!safeUnbox(hasContributorsError)}"/>
                 </FrameLayout>
             </LinearLayout>
@@ -156,7 +163,7 @@
                     android:id="@+id/loading_indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_gravity="center"
                     app:isGone="@{!safeUnbox(isLoading)}"/>
 
             <TextView

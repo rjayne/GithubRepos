@@ -115,7 +115,7 @@ class RepoDetailsViewModel(val gitHubRepository: GitHubRepository): ViewModel() 
                 }
 
                 override fun onError(t: Throwable) {
-                    Log.e(TAG, "Error loading contributors", t)
+                    Log.e(TAG, "Error loading contributors - ${t.message}", t)
                     contributorsLoadError.value = true
                     contributorsLoading.value = false
                 }
