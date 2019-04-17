@@ -31,7 +31,7 @@ class GitHubReposApplication: Application() {
     private fun installHttpCache(context: Context) {
         Log.d(TAG, "installing HttpCache")
         try {
-            val httpCacheDir = File(context.cacheDir, "http")
+            val httpCacheDir = File(context.cacheDir, "http") // the files are deleted when the app is uninstalled
             val httpCacheSize = (10 * 1024 * 1024).toLong() // 10 MiB
             HttpResponseCache.install(httpCacheDir, httpCacheSize)
         } catch (e: IOException) {

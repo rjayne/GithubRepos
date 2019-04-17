@@ -31,13 +31,11 @@ class TrendingReposFragment: Fragment(), RepoSelectedListener {
     lateinit var trendingReposViewModel: TrendingReposViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.d(TAG, "onViewCreated")
         trendingReposViewModel = ViewModelProviders.of(activity as FragmentActivity, reposViewModelFactory).get(TrendingReposViewModel::class.java)
     }
 
     @AfterViews
     fun initUI() {
-        Log.d(TAG, "initUI")
         binding.viewModel = trendingReposViewModel
 
         val adapter = RepoListAdapter(this)
