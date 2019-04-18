@@ -38,6 +38,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    useLibrary 'android.test.runner'
+    useLibrary 'android.test.base'
+    useLibrary 'android.test.mock'
 }
 
 dependencies {
@@ -83,9 +86,13 @@ dependencies {
     testImplementation 'android.arch.core:core-testing:1.1.1'
     testImplementation 'com.jraska.livedata:testing-ktx:1.1.0'
 
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha03'
-    androidTestImplementation 'androidx.annotation:annotation:1.0.2'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
+    // Testing-only dependencies
+    androidTestImplementation "androidx.test:core:$coreVersion"
+    androidTestImplementation "androidx.test.ext:junit:$extJUnitVersion"
+    androidTestImplementation "androidx.test:runner:$runnerVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
+    implementation "androidx.test.espresso:espresso-idling-resource:$espressoVersion"
 }
 
 allOpen {

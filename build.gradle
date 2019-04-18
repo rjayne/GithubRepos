@@ -16,7 +16,6 @@ buildscript {
         retrofitVersion = '2.5.0'
         gsonVersion = '2.8.5'
         recyclerViewVersion = '1.1.0-alpha04'
-//    rxJavaVersion = '2.2.8' 2.2.0 in rxKotlin
         rxAndroidVersion = '2.1.1'
         rxKotlinVersion = '2.3.0'
         rxRelayVersion = '2.1.0'
@@ -26,6 +25,13 @@ buildscript {
         archLifecycleVersion = '2.1.0-alpha04'
         glideVersion = '4.9.0'
         mockitoVersion = '2.27.0'
+
+        androidxLibVersion = "1.0.0"
+        coreVersion = "1.2.0-alpha03"
+        extJUnitVersion = "1.1.1-alpha03"
+        runnerVersion = "1.2.0-alpha03"
+        rulesVersion = "1.2.0-alpha03"
+        espressoVersion = "3.2.0-alpha03"
     }
 
     repositories {
