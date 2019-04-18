@@ -10,6 +10,10 @@ import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 
+/*
+ * Note: Pass in the EspressoTestingIdlingResource here instead of accessing via the singleton instance, so that we can mock
+ * it for JUnit (non androidTest) tests.
+ */
 class TrendingReposViewModel(val gitHubRepository: GitHubRepository, val espressoTestingIdlingResource: EspressoTestingIdlingResource): ViewModel() {
 
     private val repos = MutableLiveData<List<Repo>>()
