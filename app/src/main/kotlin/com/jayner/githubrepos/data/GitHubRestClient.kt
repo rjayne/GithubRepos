@@ -2,6 +2,7 @@ package com.jayner.githubrepos.data
 
 import com.jayner.githubrepos.model.Contributor
 import com.jayner.githubrepos.model.Repo
+import com.jayner.githubrepos.model.TrendingReposResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path

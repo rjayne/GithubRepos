@@ -2,7 +2,7 @@ package com.jayner.githubrepos.trending
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.jayner.githubrepos.data.GitHubRepository
-import com.jayner.githubrepos.data.TrendingReposResponse
+import com.jayner.githubrepos.model.TrendingReposResponse
 import com.jayner.githubrepos.test.RxSchedulerRule
 import com.jayner.githubrepos.utils.TestUtils
 import com.jraska.livedata.test

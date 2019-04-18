@@ -1,4 +1,4 @@
-package com.jayner.githubrepos.data
+package com.jayner.githubrepos.model
 
 import com.jayner.githubrepos.model.Repo
 

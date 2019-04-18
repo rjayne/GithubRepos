@@ -3,6 +3,7 @@ package com.jayner.githubrepos.data
 import com.google.gson.reflect.TypeToken
 import com.jayner.githubrepos.model.Contributor
 import com.jayner.githubrepos.model.Repo
+import com.jayner.githubrepos.model.TrendingReposResponse
 import com.jayner.githubrepos.test.RxSchedulerRule
 import com.jayner.githubrepos.utils.TestUtils
 import io.reactivex.Single

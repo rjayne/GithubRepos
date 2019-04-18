@@ -22,13 +22,13 @@ class GitHubApiService {
     }
 
     fun getTrendingRepos(): Single<List<Repo>> {
-        Log.d(TAG, "getTrendingRepos")
+//        Log.d(TAG, "getTrendingRepos")
         return gitHubRestClient.getTrendingRepos()
             .map({it.items})
     }
 
     fun getRepo(repoOwner: String, repoName: String): Single<Repo> {
-        Log.d(TAG, "getRepo")
+//        Log.d(TAG, "getRepo")
         return gitHubRestClient.getRepo(repoOwner, repoName)
     }
 
