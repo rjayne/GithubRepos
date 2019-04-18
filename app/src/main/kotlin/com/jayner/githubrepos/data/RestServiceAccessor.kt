@@ -16,6 +16,11 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.util.concurrent.TimeUnit
+import okhttp3.ConnectionSpec
+import okhttp3.TlsVersion
+import android.os.Build
+import javax.net.ssl.SSLContext
+
 
 /**
  * This Singleton class holds reference to any RestClients required by the application.
@@ -50,11 +55,12 @@ class RestServiceAccessor() {
         val httpCacheDir = File(context.getCacheDir(), "HttpResponseCache")
         Log.d(TAG, "initOkHttpClient - cache dir: " + context.getCacheDir())
 
-        return OkHttpClient.Builder()
+        var clientBuilder = OkHttpClient.Builder()
             .cache(Cache(httpCacheDir, HTTP_RESPONSE_DISK_CACHE_MAX_SIZE))
             .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
-            .build()
+
+        return enableTls12OnPreLollipop(clientBuilder).build()
     }
 
     private fun provideGithubRestService(): GitHubRestClient {
@@ -73,6 +79,31 @@ class RestServiceAccessor() {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) // Retrofit interfaces are able to return RxJava 2.x types, e.g., Observable, Flowable or Single and so on
             .baseUrl(baseUrl)
             .build()
+    }
+
+    // To enable client to work on older Android OS, otherwise get SSL Handshake aborted
+    fun enableTls12OnPreLollipop(client: OkHttpClient.Builder): OkHttpClient.Builder {
+        if (Build.VERSION.SDK_INT >= 16 && Build.VERSION.SDK_INT < 22) {
+            try {
+                val sc = SSLContext.getInstance("TLSv1.2")
+                sc.init(null, null, null)
+                client.sslSocketFactory(Tls12SocketFactory(sc.getSocketFactory()))
+
+                val cs = ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+                    .tlsVersions(TlsVersion.TLS_1_2).build()
+
+                val specs = ArrayList<ConnectionSpec>()
+                specs.add(cs)
+                specs.add(ConnectionSpec.COMPATIBLE_TLS)
+                specs.add(ConnectionSpec.CLEARTEXT)
+
+                client.connectionSpecs(specs)
+            } catch (exc: Exception) {
+                Log.e("OkHttpTLSCompat", "Error while setting TLS 1.2", exc)
+            }
+        }
+
+        return client
     }
 
     companion object {
