@@ -4,15 +4,12 @@ import android.os.Bundle
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.gson.reflect.TypeToken
 import com.jayner.githubrepos.data.GitHubRepository
-import com.jayner.githubrepos.data.TrendingReposResponse
 import com.jayner.githubrepos.model.Contributor
 import com.jayner.githubrepos.model.Repo
 import com.jayner.githubrepos.test.RxSchedulerRule
-import com.jayner.githubrepos.trending.TrendingReposViewModel
 import com.jayner.githubrepos.utils.TestUtils
 import com.jraska.livedata.test
 import io.reactivex.Single
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -20,7 +17,6 @@ import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
-import org.mockito.internal.matchers.Any
 import org.mockito.junit.MockitoJUnit
 
 class RepoDetailsViewModelTest {
@@ -225,8 +221,6 @@ class RepoDetailsViewModelTest {
     @Test
     fun testRestoreInstanceState_ExistingRepo() {
         // Setup
-        Mockito.`when`(mockBundle.getStringArray("repo_details")).thenReturn(arrayOf(repo.owner.login, repo.name))
-        Mockito.`when`(mockGitHubRepository.getRepo(repo.owner.login, repo.name)).thenReturn(Single.just(repo))
         Mockito.`when`(mockGitHubRepository.getContributors(repo.contributorsUrl)).thenReturn(Single.just(contributorsList))
 
         viewModel.setRepo(repo)
@@ -250,8 +244,6 @@ class RepoDetailsViewModelTest {
     fun testRestoreInstanceState_InvalidStateBundle() {
         // Setup
         Mockito.`when`(mockBundle.getStringArray("repo_details")).thenReturn(null)
-        Mockito.`when`(mockGitHubRepository.getRepo(repo.owner.login, repo.name)).thenReturn(Single.just(repo))
-        Mockito.`when`(mockGitHubRepository.getContributors(repo.contributorsUrl)).thenReturn(Single.just(contributorsList))
 
         // Test
         viewModel.restoreFromBundle(mockBundle)

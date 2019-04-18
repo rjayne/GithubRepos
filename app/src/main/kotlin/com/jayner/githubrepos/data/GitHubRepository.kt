@@ -9,6 +9,18 @@ import org.androidannotations.annotations.Bean
 import org.androidannotations.annotations.EBean
 import java.util.*
 
+/**
+ * This repository is responsible for retrieving the relevant GitHub Repository data from the API and caching it once
+ * retrieved.
+ *
+ * When a call to retrieve the Trending Repos is made to the API, the trending repository data is cached. For subsequent
+ * individual repo lookups, the cached trending repos list is first accessed to retrieve the repo. In the case, where
+ * the repo is not in that list (ie. GC was performed by the OS), a call to the API is made to retrieve the relevant
+ * repo.
+ *
+ * API lookups are performed to retrieve the repo contributors, with the data cached upon retrieval for subsequent
+ * lookup requests.
+ */
 @EBean(scope = EBean.Scope.Singleton)
 class GitHubRepository() {
 
@@ -17,24 +29,23 @@ class GitHubRepository() {
 
     private val cachedTrendingRepos = ArrayList<Repo>()
     private val cachedContributors = HashMap<String, List<Contributor>>()
-    var scheduler = Schedulers.io()
 
     fun getTrendingRepos(): Single<List<Repo>> {
         return Maybe.concat(cachedTrendingRepos(), apiTrendingRepos())
             .firstOrError()
-            .subscribeOn(scheduler)
+            .subscribeOn(Schedulers.io())
     }
 
     fun getRepo(repoOwner: String, repoName: String): Single<Repo> {
         return Maybe.concat(cachedRepo(repoOwner, repoName), apiRepo(repoOwner, repoName))
             .firstOrError()
-            .subscribeOn(scheduler)
+            .subscribeOn(Schedulers.io())
     }
 
     fun getContributors(url: String): Single<List<Contributor>> {
         return Maybe.concat(cachedContributors(url), apiContributors(url))
             .firstOrError()
-            .subscribeOn(scheduler)
+            .subscribeOn(Schedulers.io())
     }
 
     fun clearCache() {

@@ -7,6 +7,10 @@ import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
 
+/**
+ * Rule created to substitute app schedulers with the Trampoline scheduler, to allow tests to execute the tasks on the
+ * current thread in a FIFO manner, which allows for testing values in an expected order.
+ */
 class RxSchedulerRule: TestRule {
 
     override fun apply(base: Statement, description: Description?): Statement {

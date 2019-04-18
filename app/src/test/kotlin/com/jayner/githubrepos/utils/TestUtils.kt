@@ -9,6 +9,9 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.lang.reflect.Type
 
+/**
+ * Utility created to allow tests to load json objects from resource files.
+ */
 object TestUtils {
 
     fun <T> loadJson(path: String, type: Type): T {

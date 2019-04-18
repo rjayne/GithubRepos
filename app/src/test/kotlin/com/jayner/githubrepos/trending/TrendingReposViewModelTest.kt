@@ -47,6 +47,7 @@ class TrendingReposViewModelTest {
      */
     @Test
     fun testNull() {
+        // Test
         viewModel.getRepos().test().assertNoValue()
         viewModel.hasError().test().assertNoValue()
         viewModel.isLoading().test().assertNoValue()
@@ -60,10 +61,12 @@ class TrendingReposViewModelTest {
      */
     @Test
     fun testObserveAfterFetchRepos() {
+        // Setup
         Mockito.`when`(mockGitHubRepository.getTrendingRepos()).thenReturn(Single.just(trendingReposResponse.items))
 
         viewModel.start()
 
+        // Test
         var loadingObserver = viewModel.isLoading().test()
         var reposObserver = viewModel.getRepos().test()
         var errorObserver = viewModel.hasError().test()
@@ -81,12 +84,14 @@ class TrendingReposViewModelTest {
      */
     @Test
     fun testObserverBeforeFetchRepos() {
+        // Setup
         Mockito.`when`(mockGitHubRepository.getTrendingRepos()).thenReturn(Single.just(trendingReposResponse.items))
 
         var loadingObserver = viewModel.isLoading().test()
         var reposObserver = viewModel.getRepos().test()
         var errorObserver = viewModel.hasError().test()
 
+        // Test
         viewModel.start()
 
         loadingObserver.assertHasValue().assertValueHistory(true, false).assertHistorySize(2).assertValue(false)
@@ -102,12 +107,14 @@ class TrendingReposViewModelTest {
      */
     @Test
     fun testCallStartTwice() {
+        // Setup
         Mockito.`when`(mockGitHubRepository.getTrendingRepos()).thenReturn(Single.just(trendingReposResponse.items))
 
         var loadingObserver = viewModel.isLoading().test()
         var reposObserver = viewModel.getRepos().test()
         var errorObserver = viewModel.hasError().test()
 
+        // Test
         viewModel.start()
         viewModel.start()
 
@@ -123,12 +130,14 @@ class TrendingReposViewModelTest {
      */
     @Test
     fun testError() {
+        // Setup
         Mockito.`when`(mockGitHubRepository.getTrendingRepos()).thenReturn(Single.error(Exception("Test Exception")))
 
         var loadingObserver = viewModel.isLoading().test()
         var reposObserver = viewModel.getRepos().test()
         var errorObserver = viewModel.hasError().test()
 
+        // Test
         viewModel.start()
 
         loadingObserver.assertHasValue().assertValueHistory(true, false).assertHistorySize(2).assertValue(false)
