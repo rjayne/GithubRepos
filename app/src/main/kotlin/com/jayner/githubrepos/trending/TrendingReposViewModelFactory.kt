@@ -3,6 +3,7 @@ package com.jayner.githubrepos.trending
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.jayner.githubrepos.data.GitHubRepository
+import com.jayner.githubrepos.idlingresource.EspressoTestingIdlingResource
 import org.androidannotations.annotations.Bean
 import org.androidannotations.annotations.EBean
 
@@ -16,7 +17,7 @@ class TrendingReposViewModelFactory: ViewModelProvider.Factory {
     lateinit var gitHubRepository: GitHubRepository
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return TrendingReposViewModel(gitHubRepository) as T
+        return TrendingReposViewModel(gitHubRepository, EspressoTestingIdlingResource.getInstance()) as T
     }
 
 }

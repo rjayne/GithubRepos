@@ -2,6 +2,7 @@ package com.jayner.githubrepos.trending
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.jayner.githubrepos.data.GitHubRepository
+import com.jayner.githubrepos.idlingresource.EspressoTestingIdlingResource
 import com.jayner.githubrepos.model.TrendingReposResponse
 import com.jayner.githubrepos.test.RxSchedulerRule
 import com.jayner.githubrepos.utils.TestUtils
@@ -29,6 +30,9 @@ class TrendingReposViewModelTest {
     @Mock
     lateinit var mockGitHubRepository: GitHubRepository
 
+    @Mock
+    lateinit var mockEspressoTestingIdlingResource: EspressoTestingIdlingResource
+
     private lateinit var viewModel: TrendingReposViewModel
     private lateinit var trendingReposResponse: TrendingReposResponse
 
@@ -39,7 +43,7 @@ class TrendingReposViewModelTest {
 
         trendingReposResponse = TestUtils.loadJson("mock/trending_repos.json", TrendingReposResponse::class.java)
 
-        viewModel = TrendingReposViewModel(mockGitHubRepository)
+        viewModel = TrendingReposViewModel(mockGitHubRepository, mockEspressoTestingIdlingResource)
     }
 
     /**

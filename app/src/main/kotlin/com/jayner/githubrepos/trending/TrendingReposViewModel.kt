@@ -1,16 +1,16 @@
 package com.jayner.githubrepos.trending
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.jayner.githubrepos.data.GitHubRepository
+import com.jayner.githubrepos.idlingresource.EspressoTestingIdlingResource
 import com.jayner.githubrepos.model.Repo
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 
-class TrendingReposViewModel(val gitHubRepository: GitHubRepository): ViewModel() {
+class TrendingReposViewModel(val gitHubRepository: GitHubRepository, val espressoTestingIdlingResource: EspressoTestingIdlingResource): ViewModel() {
 
     private val repos = MutableLiveData<List<Repo>>()
     private val repoLoadError = MutableLiveData<Boolean>()
@@ -20,6 +20,7 @@ class TrendingReposViewModel(val gitHubRepository: GitHubRepository): ViewModel(
 
     fun start() {
         if(repos.value == null) {
+            espressoTestingIdlingResource.increment()
             fetchRepos()
         }
     }
@@ -49,12 +50,14 @@ class TrendingReposViewModel(val gitHubRepository: GitHubRepository): ViewModel(
                     repoLoadError.value = false
                     repos.value = trendingRepos
                     loading.value = false
+                    espressoTestingIdlingResource.decrement()
                 }
 
                 override fun onError(t: Throwable) {
 //                    Log.e(TAG, "Error loading repos - ${t.message}", t)
                     repoLoadError.value = true
                     loading.value = false
+                    espressoTestingIdlingResource.decrement()
                 }
             })
     }
