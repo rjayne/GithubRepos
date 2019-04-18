@@ -7,7 +7,7 @@ import java.net.UnknownHostException
 import javax.net.ssl.SSLSocket
 import javax.net.ssl.SSLSocketFactory
 
-
+// Socket factory required to get app to work on devices lower than Lollipop
 class Tls12SocketFactory(val delegate: SSLSocketFactory): SSLSocketFactory() {
     private val TLS_V12_ONLY = arrayOf("TLSv1.2")
 
